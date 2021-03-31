@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Question extends StatelessWidget {
-  const Question(this.text, {Key? key}) : super(key: key);
+  Question(this.text, {Key? key}) : super(key: key);
 
   final String text;
 
@@ -12,7 +12,7 @@ class Question extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 15,
+          fontSize: 28,
         ),
         textAlign: TextAlign.center,
       ),
