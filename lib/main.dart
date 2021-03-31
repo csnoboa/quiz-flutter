@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_flutter/answer.dart';
 import 'package:quiz_flutter/question.dart';
 
 main() {
@@ -11,8 +12,8 @@ class PerguntaApp extends StatefulWidget {
 }
 
 class _PerguntaAppState extends State<PerguntaApp> {
-  void responder(int num) {
-    debugPrint('Botão $num apertado!');
+  void responder() {
+    debugPrint('Botão apertado!');
   }
 
   List<String> perguntas = [
@@ -30,18 +31,11 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(perguntas[0]),
-            Question('Questão 1'),
-            ElevatedButton(
-              onPressed: () {
-                responder(1);
-              },
-              child: Text('Resposta 2'),
-            ),
-            ElevatedButton(
-              onPressed: () => responder(2),
-              child: Text('Resposta 3'),
-            ),
+            Question(perguntas[0]),
+            Answer('Answer 1', responder),
+            Answer('Answer 2', responder),
+            Answer('Answer 3', responder),
+            Answer('Answer 4', responder),
           ],
         ),
       ),
