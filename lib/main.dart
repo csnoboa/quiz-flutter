@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_flutter/question.dart';
 
 main() {
   runApp(PerguntaApp());
 }
 
-class PerguntaApp extends StatelessWidget {
+class PerguntaApp extends StatefulWidget {
+  @override
+  _PerguntaAppState createState() => _PerguntaAppState();
+}
+
+class _PerguntaAppState extends State<PerguntaApp> {
   void responder(int num) {
     debugPrint('Botão $num apertado!');
   }
@@ -25,10 +31,7 @@ class PerguntaApp extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(perguntas[0]),
-            ElevatedButton(
-              onPressed: () => responder(0),
-              child: Text('Resposta 1'),
-            ),
+            Question('Questão 1'),
             ElevatedButton(
               onPressed: () {
                 responder(1);
