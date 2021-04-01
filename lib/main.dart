@@ -45,20 +45,26 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
+    List<String>? respostas =
+        perguntas[_perguntaSelecionada]['respostas'] as List<String>;
+
+    List<Answer> respostasWidget =
+        respostas.map((text) => Answer(text, responder)).toList();
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Perguntas'),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Question(perguntas[_perguntaSelecionada]['text'].toString()),
-            Answer('Answer 1', responder),
-            Answer('Answer 2', responder),
-            Answer('Answer 3', responder),
-            Answer('Answer 4', responder),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Question(perguntas[_perguntaSelecionada]['text'].toString()),
+              ...respostasWidget
+            ],
+          ),
         ),
       ),
     );
