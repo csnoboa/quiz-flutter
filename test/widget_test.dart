@@ -5,7 +5,6 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:quiz_flutter/main.dart';
@@ -15,16 +14,31 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(PerguntaApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('5'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('Qual é sua cor favorita?'), findsOneWidget);
+    expect(find.text('Vermelho'), findsOneWidget);
+    expect(find.text('Preto'), findsOneWidget);
+    expect(find.text('Reiniciar'), findsNothing);
 
     // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.tap(find.text('Vermelho'));
+    await tester.pump();
+    await tester.tap(find.text('Gato'));
+    await tester.pump();
+    await tester.tap(find.text('Pizza'));
+    await tester.pump();
+    await tester.tap(find.text('Outono'));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('5'), findsNothing);
-    expect(find.text('6'), findsOneWidget);
+    // // Verify that our counter has incremented.
+    expect(find.text('Nivel Máximo'), findsOneWidget);
+    expect(find.text('Parabéns'), findsNothing);
+
+    await tester.tap(find.text('Reiniciar'));
+    await tester.pump();
+
+    // expect(find.text('Qual a sua cor favorita?'), findsOneWidget);
+    expect(find.text('Vermelho'), findsOneWidget);
+    expect(find.text('Preto'), findsOneWidget);
+    expect(find.text('Reiniciar'), findsNothing);
   });
 }
