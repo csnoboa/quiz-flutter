@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_flutter/answer.dart';
 import 'package:quiz_flutter/form.dart';
-import 'package:quiz_flutter/question.dart';
 import 'package:quiz_flutter/result.dart';
 
 main() {
@@ -15,6 +13,7 @@ class PerguntaApp extends StatefulWidget {
 
 class _PerguntaAppState extends State<PerguntaApp> {
   int _questionSelected = 0;
+  int _punctuationTotal = 0;
 
   List<Map<String, Object>> questions = [
     {
@@ -55,11 +54,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
     },
   ];
 
-  void onAnswer() {
+  void onAnswer(int punctuation) {
     setState(() {
       _questionSelected++;
+      _punctuationTotal += punctuation;
     });
     debugPrint('Botão apertado! Pergunta n°: $_questionSelected');
+    debugPrint('Pontuação Total: $_punctuationTotal');
   }
 
   bool get hasQuestionSelected {
@@ -80,7 +81,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
                   questionSelected: _questionSelected,
                   onAnswer: onAnswer,
                   questions: questions)
-              : Result(),
+              : Result(_punctuationTotal),
         ),
       ),
     );

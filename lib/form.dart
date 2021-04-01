@@ -10,7 +10,7 @@ class FormWidget extends StatelessWidget {
 
   final questions;
   final int questionSelected;
-  final Function onAnswer;
+  final void Function(int) onAnswer;
 
   bool get hasQuestionSelected {
     return questionSelected < questions.length;
@@ -26,7 +26,8 @@ class FormWidget extends StatelessWidget {
       children: [
         Question(questions[questionSelected]['text'].toString()),
         ...answers
-            .map((answer) => Answer(answer['text'] as String, onAnswer))
+            .map((answer) => Answer(answer['text'] as String,
+                () => onAnswer(answer['point'] as int)))
             .toList(),
       ],
     );
