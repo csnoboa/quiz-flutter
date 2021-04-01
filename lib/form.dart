@@ -21,6 +21,7 @@ class FormWidget extends StatelessWidget {
     List<Map<String, Object>>? answers = hasQuestionSelected
         ? questions[questionSelected]['answers'] as List<Map<String, Object>>
         : [];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

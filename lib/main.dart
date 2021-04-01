@@ -20,27 +20,27 @@ class _PerguntaAppState extends State<PerguntaApp> {
       'text': 'Qual é sua cor favorita?',
       'answers': [
         {'text': 'Vermelho', 'point': 10},
-        {'text': 'Preto', 'point': 1},
+        {'text': 'Preto', 'point': 5},
         {'text': 'Verde', 'point': 3},
-        {'text': 'Azul', 'point': 5},
+        {'text': 'Azul', 'point': 1},
       ]
     },
     {
       'text': 'Qual é o seu animal favorito?',
       'answers': [
-        {'text': 'Gato', 'point': 1},
-        {'text': 'Cachorro', 'point': 10},
-        {'text': 'Tartaruga', 'point': 5},
-        {'text': 'Largatixa', 'point': 3},
+        {'text': 'Gato', 'point': 10},
+        {'text': 'Cachorro', 'point': 5},
+        {'text': 'Tartaruga', 'point': 3},
+        {'text': 'Largatixa', 'point': 1},
       ]
     },
     {
       'text': 'Qual é o sua comida favorita?',
       'answers': [
-        {'text': 'Pizza', 'point': 1},
+        {'text': 'Pizza', 'point': 10},
         {'text': 'Lasanha', 'point': 5},
         {'text': 'Cachorro-quente', 'point': 3},
-        {'text': 'Hamburguer', 'point': 10},
+        {'text': 'Hamburguer', 'point': 1},
       ]
     },
     {
@@ -63,6 +63,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
     debugPrint('Pontuação Total: $_punctuationTotal');
   }
 
+  void onRestart() {
+    setState(() {
+      _punctuationTotal = 0;
+      _questionSelected = 0;
+    });
+  }
+
   bool get hasQuestionSelected {
     return _questionSelected < questions.length;
   }
@@ -75,13 +82,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
           title: Text('Perguntas'),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
           child: hasQuestionSelected
               ? FormWidget(
                   questionSelected: _questionSelected,
                   onAnswer: onAnswer,
                   questions: questions)
-              : Result(_punctuationTotal),
+              : Result(_punctuationTotal, onRestart),
         ),
       ),
     );

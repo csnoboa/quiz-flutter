@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
-  const Result(this.punctuation, {Key? key}) : super(key: key);
+  const Result(this.punctuation, this.onRestart, {Key? key}) : super(key: key);
 
   final int punctuation;
+  final void Function() onRestart;
 
   String get textResult {
     if (punctuation < 10) {
@@ -20,7 +21,14 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(textResult, style: TextStyle(fontSize: 28)),
+      child: Column(
+        children: [
+          Text(textResult, style: TextStyle(fontSize: 28)),
+          ElevatedButton(
+              onPressed: onRestart,
+              child: Text('Reiniciar', style: TextStyle(fontSize: 28)))
+        ],
+      ),
     );
   }
 }
