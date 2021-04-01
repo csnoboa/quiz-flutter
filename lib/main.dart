@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_flutter/answer.dart';
+import 'package:quiz_flutter/form.dart';
 import 'package:quiz_flutter/question.dart';
+import 'package:quiz_flutter/result.dart';
 
 main() {
   runApp(PerguntaApp());
@@ -12,45 +14,60 @@ class PerguntaApp extends StatefulWidget {
 }
 
 class _PerguntaAppState extends State<PerguntaApp> {
-  int _perguntaSelecionada = 0;
+  int _questionSelected = 0;
 
-  List<Map<String, Object>> perguntas = [
+  List<Map<String, Object>> questions = [
     {
       'text': 'Qual é sua cor favorita?',
-      'respostas': ['Vermelho', 'Preto', 'Verde', 'Azul']
+      'answers': [
+        {'text': 'Vermelho', 'point': 10},
+        {'text': 'Preto', 'point': 1},
+        {'text': 'Verde', 'point': 3},
+        {'text': 'Azul', 'point': 5},
+      ]
     },
     {
       'text': 'Qual é o seu animal favorito?',
-      'respostas': ['Gato', 'Cachorro', 'Tartaruga', 'Largatixa']
+      'answers': [
+        {'text': 'Gato', 'point': 1},
+        {'text': 'Cachorro', 'point': 10},
+        {'text': 'Tartaruga', 'point': 5},
+        {'text': 'Largatixa', 'point': 3},
+      ]
     },
     {
       'text': 'Qual é o sua comida favorita?',
-      'respostas': ['Pizza', 'Lasanha', 'Cachorro-quente', 'Hamburguer']
+      'answers': [
+        {'text': 'Pizza', 'point': 1},
+        {'text': 'Lasanha', 'point': 5},
+        {'text': 'Cachorro-quente', 'point': 3},
+        {'text': 'Hamburguer', 'point': 10},
+      ]
     },
     {
       'text': 'Qual é o sua estação do ano favorita?',
-      'respostas': ['Outono', 'Verão', 'Primavera', 'Inverno']
+      'answers': [
+        {'text': 'Outono', 'point': 10},
+        {'text': 'Verão', 'point': 5},
+        {'text': 'Primavera', 'point': 3},
+        {'text': 'Inverno', 'point': 1},
+      ]
     },
   ];
 
-  void responder() {
+  void onAnswer() {
     setState(() {
-      _perguntaSelecionada++;
-      if (_perguntaSelecionada == perguntas.length) {
-        _perguntaSelecionada = 0;
-      }
+      _questionSelected++;
     });
-    debugPrint('Botão apertado! Pergunta n°: $_perguntaSelecionada');
+    debugPrint('Botão apertado! Pergunta n°: $_questionSelected');
+  }
+
+  bool get hasQuestionSelected {
+    return _questionSelected < questions.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String>? respostas =
-        perguntas[_perguntaSelecionada]['respostas'] as List<String>;
-
-    List<Answer> respostasWidget =
-        respostas.map((text) => Answer(text, responder)).toList();
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -58,13 +75,12 @@ class _PerguntaAppState extends State<PerguntaApp> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Question(perguntas[_perguntaSelecionada]['text'].toString()),
-              ...respostasWidget
-            ],
-          ),
+          child: hasQuestionSelected
+              ? FormWidget(
+                  questionSelected: _questionSelected,
+                  onAnswer: onAnswer,
+                  questions: questions)
+              : Result(),
         ),
       ),
     );
